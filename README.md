@@ -1,93 +1,72 @@
-🌒 Big Data Eclipse Classification Project
-Welcome to the Big Data Eclipse Classification project by lucianateixeira. This project demonstrates how to combine Apache Spark for scalable data preprocessing with TensorFlow/Keras LSTM models for time series classification, using real astronomical eclipse data from NASA.
+# 🌒 Big Data Eclipse Classification Project
 
-📁 Repository Structure
-bash
-Copy
-Edit
-bigdata/
-│
-├── 2021322_CA.ipynb               # Initial notebook with core implementation
-├── 2021322_CA (1).ipynb           # Alternate/backup version
-├── 2021322_CA(FINAL).ipynb        # Final cleaned version of the Spark + LSTM project
-├── hadoop-apache.ipynb            # Notebook for Hadoop and Apache integration
-├── hadoop-apache (FINAL).ipynb    # Final version of Hadoop-Apache work
-└── README.md                      # Project documentation
-🔍 Project Overview
-This project:
+Welcome to the **Big Data Eclipse Classification** project by [lucianateixeira](https://github.com/lucianateixeira).  
+This project showcases how to combine **Apache Spark** for scalable data processing with a **Keras LSTM model** to classify eclipse types using real astronomical data from NASA.
 
-Uses PySpark for reading, cleaning, and processing a large dataset of solar and lunar eclipses.
+## 🔍 Project Overview
 
-Detects and removes outliers using statistical thresholds (3-sigma rule).
+This project involves:
+- Loading and exploring a large eclipse dataset using **PySpark**
+- **Detecting and removing outliers** based on standard deviation thresholds (3-sigma)
+- **Vectorizing and scaling** features with Spark's `VectorAssembler` and `StandardScaler`
+- Converting the processed Spark DataFrame to Pandas for modeling
+- Training an **LSTM neural network** in TensorFlow/Keras to classify eclipse types (`etype`)
 
-Applies feature engineering (vector assembly and standard scaling).
+## 📊 Dataset
 
-Converts the Spark DataFrame to Pandas for deep learning.
+The dataset used is from NASA and includes:
+- Date, time, and location of eclipses
+- Gamma and magnitude values
+- Saros series and lunar numbers
+- Eclipse path width, duration, and astronomical angles
 
-Trains an LSTM neural network to classify eclipse types based on temporal and geospatial features.
+### 🛰️ Data Sources:
+- [NASA Solar Eclipse Table](https://umbra.nascom.nasa.gov/eclipse/980226/tables/table_1.html)  
+- [NASA Eclipse Predictions (2076)](https://eclipse.gsfc.nasa.gov/SEbeselm/SEbeselm2051/SE2076Jan06Tbeselm.html)
 
-📊 Dataset
-The dataset used contains detailed records of solar eclipses, retrieved from NASA sources:
+## ⚙️ Technologies Used
 
-NASA Solar Eclipse Table
+- **Apache Spark (PySpark)** – for large-scale data handling and preprocessing  
+- **Pandas / NumPy** – for data manipulation  
+- **TensorFlow / Keras** – for building and training the neural network  
+- **Scikit-learn** – for train/test split  
+- **Jupyter Notebook** – for development and interactive analysis  
 
-NASA Eclipse Data (2076)
+## 🧠 Model Architecture
 
-Key Features:
-Date and time of the eclipse
+- Optimizer: `adam`  
+- Loss Function: `sparse_categorical_crossentropy`  
+- Output: Classification of eclipse type  
+- Evaluation: Accuracy score on 30% test set
 
-Geographic coordinates
+## 🧪 Results
 
-Saros series and gamma values
+- The 3-sigma outlier detection improved model performance
+- The LSTM model handled time-like features and multi-dimensional inputs effectively
+- Classification accuracy validated on 30% of the test set
 
-Duration, magnitude, and other astronomical parameters
+## 🚀 How to Run
 
-⚙️ Technologies Used
-Apache Spark (PySpark) for distributed data processing
+### 1. Install Dependencies
 
-Pandas / NumPy for in-memory data manipulation
+Make sure you have the following installed:
 
-TensorFlow / Keras for building and training the LSTM model
+- **Java 11** (set your `JAVA_HOME`):
+  - Install Java 11 from [Oracle](https://www.oracle.com/java/technologies/javase-jdk11-downloads.html) or OpenJDK.
+  - Set `JAVA_HOME` on your system:
+    - For Windows:
+      ```bash
+      set JAVA_HOME=C:\Program Files\Java\jdk-11
+      ```
+    - For Mac/Linux:
+      ```bash
+      export JAVA_HOME=/path/to/java11
+      ```
 
-Scikit-learn for train-test splitting
+- **Python Libraries**:
+  Install the following Python packages:
+  ```bash
+  pip install pyspark pandas numpy tensorflow scikit-learn
 
-Jupyter Notebook for development and visualization
 
-🧠 Model Architecture
-text
-Copy
-Edit
-Input → LSTM(64) → Dense(64, relu) → Dense(n_classes, softmax)
-Loss function: sparse_categorical_crossentropy
 
-Optimizer: adam
-
-Evaluated with accuracy on a 30% test split
-
-🧪 Results
-Data cleaning and outlier detection significantly improved model performance.
-
-The LSTM model achieved solid accuracy in predicting eclipse types, indicating the feasibility of time series classification with astronomical data.
-
-🛠 How to Run
-Clone the repo:
-
-bash
-Copy
-Edit
-git clone https://github.com/lucianateixeira/bigdata.git
-cd bigdata
-Install dependencies:
-
-Spark (with Java 11)
-
-Python packages: pyspark, pandas, numpy, tensorflow, scikit-learn
-
-Set your JAVA_HOME:
-
-python
-Copy
-Edit
-os.environ['JAVA_HOME'] = "C:\\Program Files\\Java\\jdk-11"
-Run the final notebook:
-2021322_CA(FINAL).ipynb
